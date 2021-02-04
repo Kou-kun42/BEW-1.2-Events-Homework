@@ -27,8 +27,10 @@ def event_detail(event_id):
     """Show a single event."""
     # Gets the event with the given id and send to the template
     event = Event.query.filter_by(id=event_id).one()
-    date = str(event.date_and_time).split(" ")
-    return render_template('event_detail.html', event=event, date=date)
+    date = str(event.date_and_time).split(" ")[0]
+    time = str(event.date_and_time).split(" ")[1]
+    return render_template('event_detail.html', event=event, date=date,
+                           time=time)
 
 
 @main.route('/event/<event_id>', methods=['POST'])

@@ -17,7 +17,7 @@ class Guest(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     phone = db.Column(db.String(80), unique=True, nullable=False)
     events_attending = db.relationship("Event", secondary="guest_event_table",
-                                       back_populates="guest")
+                                       back_populates="guests")
 
 # Creates a model called `Event` with the following fields:
 # - id: primary key
@@ -42,7 +42,7 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=False)
     date_and_time = db.Column(db.DateTime, nullable=False)
     guests = db.relationship("Guest", secondary="guest_event_table",
-                             back_populates="events")
+                             back_populates="events_attending")
     event_type = db.Column(db.Enum(Event_Type), default=Event_Type.PARTY)
 
 # Creates a table `guest_event_table` with the following columns:
